@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-
         binding.ethereumAddressTextView.text = ethereumAccountAddress
 
         binding.showTokensButton.setOnClickListener {
