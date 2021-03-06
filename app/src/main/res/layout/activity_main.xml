@@ -37,6 +37,7 @@
 
     <Button
         android:id="@+id/showTokensButton"
+        android:theme="@style/AppTheme.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/horizontal_margin"
@@ -46,6 +47,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ethereumAddressTextView" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

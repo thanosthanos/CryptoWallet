@@ -12,10 +12,10 @@
         android:name="io.arg.cryptowallet.application.CryptoApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CryptoWallet">
+        android:theme="@style/AppTheme">
 
         <activity android:name=".activity.MainActivity"
-            android:theme="@style/Theme.CryptoWallet.ActivityTheme">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +24,7 @@
         </activity>
 
         <activity android:name=".activity.SearchTokenActivity"
-            android:theme="@style/Theme.CryptoWallet.ActivityTheme"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 
