@@ -1,4 +1,4 @@
-package io.arg.cryptowallet.data.model
+package io.arg.cryptowallet.data.resource
 
 /**
  * Seal class to handle the communication from the Data layer -> View model -> View

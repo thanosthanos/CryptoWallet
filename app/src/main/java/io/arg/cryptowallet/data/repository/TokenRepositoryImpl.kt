@@ -2,12 +2,11 @@ package io.arg.cryptowallet.data.repository
 
 import androidx.lifecycle.MutableLiveData
 import io.arg.cryptowallet.constant.Constants
-import io.arg.cryptowallet.data.model.Resource
+import io.arg.cryptowallet.data.resource.Resource
 import io.arg.cryptowallet.exception.NoBalanceFoundException
-import io.arg.cryptowallet.exception.NoTokenFoundForTermException
-import io.arg.cryptowallet.server.api.TokensApi
-import io.arg.cryptowallet.server.model.ERC20TokenList
-import io.arg.cryptowallet.server.model.TokenBalance
+import io.arg.cryptowallet.data.server.api.TokensApi
+import io.arg.cryptowallet.data.server.model.ERC20TokenList
+import io.arg.cryptowallet.data.server.model.TokenBalance
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

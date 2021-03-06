@@ -1,7 +1,7 @@
-package io.arg.cryptowallet.server.api
+package io.arg.cryptowallet.data.server.api
 
-import io.arg.cryptowallet.server.model.ERC20TokenList
-import io.arg.cryptowallet.server.model.TokenBalance
+import io.arg.cryptowallet.data.server.model.ERC20TokenList
+import io.arg.cryptowallet.data.server.model.TokenBalance
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

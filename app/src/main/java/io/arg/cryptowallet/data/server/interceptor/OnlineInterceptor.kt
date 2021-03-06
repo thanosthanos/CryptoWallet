@@ -1,9 +1,9 @@
-package io.arg.cryptowallet.server.interceptor
+package io.arg.cryptowallet.data.server.interceptor
 
 import io.arg.cryptowallet.application.CryptoApplication
 import io.arg.cryptowallet.exception.NoConnectivityException
-import io.arg.cryptowallet.server.api.TokensApi.CACHE_CONTROL_HEADER
-import io.arg.cryptowallet.server.api.TokensApi.HEADER_PRAGMA
+import io.arg.cryptowallet.data.server.api.TokensApi.CACHE_CONTROL_HEADER
+import io.arg.cryptowallet.data.server.api.TokensApi.HEADER_PRAGMA
 import okhttp3.CacheControl
 import okhttp3.Interceptor
 import okhttp3.Response

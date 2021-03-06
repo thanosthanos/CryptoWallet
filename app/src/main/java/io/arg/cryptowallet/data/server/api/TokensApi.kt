@@ -1,7 +1,7 @@
-package io.arg.cryptowallet.server.api
+package io.arg.cryptowallet.data.server.api
 
 import io.arg.cryptowallet.application.CryptoApplication.Companion.ctx
-import io.arg.cryptowallet.server.interceptor.OnlineInterceptor
+import io.arg.cryptowallet.data.server.interceptor.OnlineInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
