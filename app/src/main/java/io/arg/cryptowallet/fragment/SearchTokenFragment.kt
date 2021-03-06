@@ -1,12 +1,11 @@
 package io.arg.cryptowallet.fragment
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import io.arg.cryptowallet.R
 import io.arg.cryptowallet.constant.Constants.debounceTimeout
@@ -49,14 +48,18 @@ class SearchTokenFragment : Fragment() {
 
     private fun initView() {
 
-        binding.searchTokenEditText.addTextChangedListener(object: TextWatcher {
-            override fun afterTextChanged(editable: Editable?) {
-                _textInput.onNext(binding.searchTokenEditText.text.toString().trim())
+        binding.searchTokenView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(text: String?): Boolean {
+                return false
             }
+            override fun onQueryTextChange(text: String?): Boolean {
+                // Start filtering the list as user start entering the characters
+                if(!text.isNullOrBlank()) {
+                    _textInput.run { onNext("$text".trim()) }
+                }
 
-            override fun beforeTextChanged(charSeq: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(charSeq: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                return false
+            }
         })
 
         // Avoid multiple network requests with debounce operator!
