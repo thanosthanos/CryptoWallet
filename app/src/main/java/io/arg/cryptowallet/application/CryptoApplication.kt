@@ -2,6 +2,7 @@ package io.arg.cryptowallet.application
 
 import android.app.Application
 import android.content.Context
+import android.net.ConnectivityManager
 import io.arg.cryptowallet.di.networkModule
 import io.arg.cryptowallet.di.repositoryModule
 import io.arg.cryptowallet.di.viewModelModule
@@ -12,6 +13,11 @@ class CryptoApplication: Application() {
 
     companion object {
         lateinit var ctx: Context
+
+        fun isInternetAvailable(): Boolean {
+            val cm = ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            return cm.activeNetwork != null
+        }
     }
 
     override fun onCreate() {
