@@ -6,8 +6,14 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import io.arg.cryptowallet.R
+import io.arg.cryptowallet.constant.Constants.debounceTimeout
 import io.arg.cryptowallet.databinding.FragmentSearchTokenBinding
+import io.arg.cryptowallet.exception.NoBalanceFoundException
+import io.arg.cryptowallet.exception.NoConnectivityException
+import io.arg.cryptowallet.exception.NoTokenFoundForTermException
 import io.arg.cryptowallet.viewmodel.TokensViewModel
 import io.reactivex.BackpressureStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -54,9 +60,10 @@ class SearchTokenFragment : Fragment() {
         })
 
         // Avoid multiple network requests with debounce operator!
+        // Moreover we cannot make more than 2 requests per second with tis API
         disposable.add(
                 textInput
-                        .debounce(1_000, TimeUnit.MILLISECONDS)
+                        .debounce(debounceTimeout, TimeUnit.MILLISECONDS)
                         .distinctUntilChanged()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -74,9 +81,23 @@ class SearchTokenFragment : Fragment() {
         // TODO
     }
 
-    private fun showError() {
+    private fun showError(error: Throwable) {
         binding.progressBar.visibility = View.INVISIBLE
-        // TODO
+
+        when (error) {
+            is NoConnectivityException -> {
+                Toast.makeText(context, getString(R.string.error_no_internet), Toast.LENGTH_SHORT).show()
+            }
+            is NoTokenFoundForTermException -> {
+                Toast.makeText(context, getString(R.string.error_no_valid_token_found), Toast.LENGTH_SHORT).show()
+            }
+            is NoBalanceFoundException -> {
+                Toast.makeText(context, getString(R.string.error_no_balance_found), Toast.LENGTH_SHORT).show()
+            }
+            else -> {
+                Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun initViewModel() {
@@ -90,7 +111,7 @@ class SearchTokenFragment : Fragment() {
                     showTokenBalance()
                 }
                 .onFailure { error: Throwable ->
-                    showError()
+                    showError(error = error)
                 }
             }
         })

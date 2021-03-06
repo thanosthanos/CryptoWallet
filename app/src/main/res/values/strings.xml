@@ -3,4 +3,7 @@
     <string name="wallet_address">Wallet Address</string>
     <string name="erc20_tokens">ERC20 TOKENS</string>
     <string name="search_token_hint">Search for an ERC20 token</string>
+    <string name="error_no_internet">Please connect to a network!</string>
+    <string name="error_no_valid_token_found">No token was found for your search, please try again!</string>
+    <string name="error_no_balance_found">No balance was found for your search, please try again!</string>
 </resources>

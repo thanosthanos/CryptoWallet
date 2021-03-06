@@ -1,5 +1,6 @@
 package io.arg.cryptowallet.server.api
 
+import io.arg.cryptowallet.server.interceptor.NetworkAndCachingInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -11,6 +12,7 @@ object TokensApi {
 
         val apiClient = OkHttpClient
             .Builder()
+            .addInterceptor(NetworkAndCachingInterceptor())
             .build()
 
         val retrofit = Retrofit.Builder()
