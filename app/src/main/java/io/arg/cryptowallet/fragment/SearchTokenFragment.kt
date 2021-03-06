@@ -6,22 +6,20 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import io.arg.cryptowallet.constant.Constants
 import io.arg.cryptowallet.databinding.FragmentSearchTokenBinding
-import io.arg.cryptowallet.server.api.TokensApi
-import io.arg.cryptowallet.server.model.ERC20TokenList
-import io.arg.cryptowallet.server.model.TokenBalance
+import io.arg.cryptowallet.viewmodel.TokensViewModel
 import io.reactivex.BackpressureStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
 class SearchTokenFragment : Fragment() {
 
+    private val viewModel by viewModel<TokensViewModel>()
     private lateinit var binding: FragmentSearchTokenBinding
     private val disposable = CompositeDisposable()
     private val _textInput = BehaviorSubject.create<String>()
@@ -33,6 +31,7 @@ class SearchTokenFragment : Fragment() {
         binding = FragmentSearchTokenBinding.inflate(inflater, container, false)
 
         initView()
+        initViewModel()
 
         return binding.root
     }
@@ -43,9 +42,10 @@ class SearchTokenFragment : Fragment() {
     }
 
     private fun initView() {
+
         binding.searchTokenEditText.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(editable: Editable?) {
-                _textInput.onNext(binding.searchTokenEditText.text.toString())
+                _textInput.onNext(binding.searchTokenEditText.text.toString().trim())
             }
 
             override fun beforeTextChanged(charSeq: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -60,42 +60,43 @@ class SearchTokenFragment : Fragment() {
                         .distinctUntilChanged()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { address ->
-                            test(address = address)
+                        .subscribe { term ->
+                            getTokenBalance(term = term)
                         })
     }
 
-    private fun test(address: String) {
-        val compositeDisposable = CompositeDisposable()
-        compositeDisposable.add(
-                TokensApi().getTokensApi().getTokens()
-                        .map {
-                            tokenList: ERC20TokenList -> getAddressFromTokenList(address, tokenList)
-                        }
-                        .flatMap { token ->
-                            TokensApi().getTokensApi().getTokenBalance(token, Constants.apiKey)
-                        }
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeOn(Schedulers.io())
-                        .subscribe({response -> onResponse(response)}, {t -> onFailure(t) })
-        )
+    private fun showProgressbar() {
+        binding.progressBar.visibility = View.VISIBLE
     }
 
-    private fun getAddressFromTokenList(tokenName: String, list: ERC20TokenList): String {
-
-        list.tokens.forEach { token ->
-            if(tokenName == token.symbol) return token.address
-        }
-
-        return ""
+    private fun showTokenBalance() {
+        binding.progressBar.visibility = View.INVISIBLE
+        // TODO
     }
 
-    private fun onResponse(tokenBalance: TokenBalance) {
-        Toast.makeText(requireContext(), tokenBalance.result, Toast.LENGTH_SHORT).show()
+    private fun showError() {
+        binding.progressBar.visibility = View.INVISIBLE
+        // TODO
     }
 
-    private fun onFailure(t: Throwable) {
-        Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+    private fun initViewModel() {
+
+        viewModel.tokenBalance.observe(viewLifecycleOwner, androidx.lifecycle.Observer { resource ->
+            run {
+                resource.onLoading {
+                    showProgressbar()
+                }
+                .onSuccess { tokenBalance ->
+                    showTokenBalance()
+                }
+                .onFailure { error: Throwable ->
+                    showError()
+                }
+            }
+        })
     }
 
+    private fun getTokenBalance(term: String) {
+        viewModel.getTokenBalance(term = term)
+    }
 }

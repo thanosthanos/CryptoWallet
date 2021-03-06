@@ -5,18 +5,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    
+
     <EditText
         android:id="@+id/searchTokenEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/search_token_hint"
         android:layout_marginStart="@dimen/big_margin"
         android:layout_marginTop="@dimen/vertical_margin"
-        android:layout_marginEnd="@dimen/big_margin"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/horizontal_margin"
+        android:hint="@string/search_token_hint"
+        app:layout_constraintEnd_toStartOf="@+id/progressBar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </EditText>
+        app:layout_constraintTop_toTopOf="parent"></EditText>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_margin"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/searchTokenEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/searchTokenEditText"
+        app:layout_constraintTop_toTopOf="@+id/searchTokenEditText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
