@@ -4,9 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import io.arg.cryptowallet.data.resource.Resource
 import io.arg.cryptowallet.data.repository.TokenRepositoryImpl
-import io.arg.cryptowallet.data.server.model.TokenBalance
+import io.arg.cryptowallet.data.resource.Resource
 import io.arg.cryptowallet.data.server.model.TokenResult
 import io.reactivex.disposables.CompositeDisposable
 

@@ -6,4 +6,5 @@
     <string name="error_no_internet">Please connect to a network!</string>
     <string name="error_no_valid_token_found">No token was found for your search, please try again!</string>
     <string name="error_no_balance_found">No balance was found for your search, please try again!</string>
+    <string name="balance">Balance</string>
 </resources>

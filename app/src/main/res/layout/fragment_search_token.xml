@@ -29,4 +29,15 @@
         app:layout_constraintStart_toEndOf="@+id/searchTokenView"
         app:layout_constraintTop_toTopOf="@+id/searchTokenView" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:layout_marginEnd="@dimen/horizontal_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/searchTokenView"
+        app:layout_constraintTop_toBottomOf="@+id/searchTokenView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

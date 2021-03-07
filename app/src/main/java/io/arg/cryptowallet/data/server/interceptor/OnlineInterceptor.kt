@@ -18,7 +18,7 @@ class OnlineInterceptor : Interceptor {
         }
 
         val cacheControl = CacheControl.Builder()
-                .maxAge(5, TimeUnit.MINUTES)
+                .maxAge(60, TimeUnit.MINUTES)
                 .build()
 
         return response.newBuilder()
