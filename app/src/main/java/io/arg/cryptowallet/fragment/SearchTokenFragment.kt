@@ -110,7 +110,7 @@ class SearchTokenFragment : Fragment() {
                 resource.onLoading {
                     showProgressbar()
                 }
-                .onSuccess { tokenBalance ->
+                .onSuccess { tokensList ->
                     showTokenBalance()
                 }
                 .onFailure { error: Throwable ->
