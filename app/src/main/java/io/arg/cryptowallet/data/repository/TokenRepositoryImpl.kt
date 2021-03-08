@@ -1,14 +1,13 @@
 package io.arg.cryptowallet.data.repository
 
 import androidx.lifecycle.MutableLiveData
-import io.arg.cryptowallet.constant.Constants
+import io.arg.cryptowallet.BuildConfig
 import io.arg.cryptowallet.data.resource.Resource
-import io.arg.cryptowallet.exception.NoBalanceFoundException
 import io.arg.cryptowallet.data.server.api.TokensApi
 import io.arg.cryptowallet.data.server.model.ERC20Token
 import io.arg.cryptowallet.data.server.model.ERC20TokenList
-import io.arg.cryptowallet.data.server.model.TokenBalance
 import io.arg.cryptowallet.data.server.model.TokenResult
+import io.arg.cryptowallet.exception.NoBalanceFoundException
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -27,7 +26,7 @@ class TokenRepositoryImpl(private val service: TokensApi) : TokenRepository {
         compositeDisposable.add(
                 service.getTokensApi().getTokens()
                         .flatMapIterable {
-                            tokenList: ERC20TokenList -> tokenList.tokens.filter { s -> s.symbol.contains(symbol) }
+                            tokenList: ERC20TokenList -> tokenList.tokens.filter { s -> s.symbol.startsWith(symbol) }
                         }
                         .concatMap {
                             token -> getTokenResult(token = token)
@@ -45,7 +44,7 @@ class TokenRepositoryImpl(private val service: TokensApi) : TokenRepository {
     }
 
     private fun getTokenResult(token: ERC20Token): Observable<TokenResult> {
-        val apiResult = service.getTokensApi().getTokenBalance(address = token.address, apikey = Constants.apiKey)
+        val apiResult = service.getTokensApi().getTokenBalance(address = token.address, apikey = BuildConfig.API_KEY)
         val balance = apiResult.blockingFirst()
 
         return Observable.just(TokenResult(isValid = balance.status == statusSuccess, symbol = token.symbol, balance = balance.result))

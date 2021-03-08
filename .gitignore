@@ -44,3 +44,5 @@ build/intermediates/dex-cache/cache.xml
 app/app-release.apk
 build/generated/mockable-android-23.jar
 build/
+
+apikey.properties

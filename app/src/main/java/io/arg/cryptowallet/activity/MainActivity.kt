@@ -3,8 +3,8 @@ package io.arg.cryptowallet.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import io.arg.cryptowallet.BuildConfig
 import io.arg.cryptowallet.R
-import io.arg.cryptowallet.constant.Constants.ethereumAccountAddress
 import io.arg.cryptowallet.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        binding.ethereumAddressTextView.text = ethereumAccountAddress
+        binding.ethereumAddressTextView.text = BuildConfig.ETHEREUM_ADDRESS
 
         binding.showTokensButton.setOnClickListener {
             val intent = Intent(this, SearchTokenActivity::class.java)
