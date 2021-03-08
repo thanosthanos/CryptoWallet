@@ -10,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object TokensApi {
 
+    private const val baseUrl = "https://api.etherscan.io/"
     private const val cacheSize = (5 * 1024 * 1024).toLong()
     private val myCache = Cache(ctx.cacheDir, cacheSize)
     const val CACHE_CONTROL_HEADER = "Cache-Control"
@@ -22,7 +23,7 @@ object TokensApi {
             .build()
 
     private val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.etherscan.io/")
+            .baseUrl(baseUrl)
             .client(apiClient)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())

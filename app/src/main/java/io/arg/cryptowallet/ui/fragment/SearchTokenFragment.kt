@@ -1,4 +1,4 @@
-package io.arg.cryptowallet.fragment
+package io.arg.cryptowallet.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -58,9 +58,7 @@ class SearchTokenFragment : Fragment() {
             }
             override fun onQueryTextChange(text: String?): Boolean {
                 // Start filtering the list as user start entering the characters
-                if(!text.isNullOrBlank()) {
-                    _textInput.run { onNext("$text".trim()) }
-                }
+                _textInput.run { onNext("$text".trim()) }
 
                 return false
             }
@@ -130,6 +128,11 @@ class SearchTokenFragment : Fragment() {
     }
 
     private fun getTokenBalance(term: String) {
+        if(term.isEmpty()) {
+            binding.recyclerView.visibility = GONE
+            return
+        }
+
         viewModel.getTokenBalance(term = term)
     }
 }

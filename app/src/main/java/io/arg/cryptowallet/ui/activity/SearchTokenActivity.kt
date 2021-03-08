@@ -1,10 +1,10 @@
-package io.arg.cryptowallet.activity
+package io.arg.cryptowallet.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.arg.cryptowallet.R
 import io.arg.cryptowallet.databinding.ActivitySearchTokenBinding
-import io.arg.cryptowallet.fragment.SearchTokenFragment
+import io.arg.cryptowallet.ui.fragment.SearchTokenFragment
 import io.arg.cryptowallet.helper.ViewHelper.Companion.initToolBar
 
 class SearchTokenActivity : AppCompatActivity() {
