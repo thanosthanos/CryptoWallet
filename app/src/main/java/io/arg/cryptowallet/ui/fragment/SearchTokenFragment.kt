@@ -77,6 +77,9 @@ class SearchTokenFragment : Fragment() {
                         })
     }
 
+    /**
+     * Get response of the viewmodel based on the server response
+     */
     private fun initViewModel() {
 
         viewModel.tokenBalance.observe(viewLifecycleOwner, androidx.lifecycle.Observer { resource ->

@@ -17,6 +17,9 @@ class TokenRepositoryImpl(private val service: TokensApi) : TokenRepository {
 
     private val statusSuccess = "1"
 
+    /**
+     * Get all possible tokens and then the balance of each token(0 up to n) based on the user search term
+     */
     override fun getTokenBalance(symbol: String, compositeDisposable: CompositeDisposable): MutableLiveData<Resource<List<TokenResult>>> {
 
         val data = MutableLiveData<Resource<List<TokenResult>>>()

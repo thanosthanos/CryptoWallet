@@ -9,6 +9,9 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import java.util.concurrent.TimeUnit
 
+/**
+ * Online caching mechanism and throw error when internet connection is missing.
+ */
 class OnlineInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val response = chain.proceed(chain.request())
