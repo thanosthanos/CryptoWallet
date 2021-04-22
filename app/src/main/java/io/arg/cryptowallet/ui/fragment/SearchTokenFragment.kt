@@ -138,4 +138,5 @@ class SearchTokenFragment : Fragment() {
 
         viewModel.getTokenBalance(term = term)
     }
+
 }

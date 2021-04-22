@@ -21,4 +21,7 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("io.arg.cryptowallet", appContext.packageName)
     }
+
+
+
 }
